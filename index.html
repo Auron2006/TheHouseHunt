@@ -3,33 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Demo</title>
+    <title>House Comparison</title>
     <style>
+        /* Global Styles */
         body {
-            background-color: #2c3e50;
-            color: white;
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f7f9f9;
+            color: #0f1419;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Main content container */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
             text-align: center;
-            padding: 50px;
         }
-        h1 {
-            color: #ecf0f1;
+
+        /* Houses container */
+        .houses-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 40px;
         }
-        p {
-            color: #bdc3c7;
+
+        /* House Card Styles */
+        .house {
+            width: 45%;
+            padding: 10px;
+            background-color: #ffffff;
+            border: 1px solid #e1e8ed;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
         }
-        a {
-            color: #3498db;
-            text-decoration: none;
+
+        .house:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        a:hover {
-            text-decoration: underline;
+
+        .house img {
+            width: 100%;
+            border-radius: 16px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .houses-container {
+                flex-direction: column;
+            }
+
+            .house {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Button to skip to next pair */
+        #skipButton {
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #1da1f2;
+            color: white;
+            border: none;
+            font-size: 16px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to My HTML Demo</h1>
-    <p>This is a simple HTML page with a darker background.</p>
-    <p>Feel free to <a href="https://www.example.com">click here</a> to learn more!</p>
+    <div class="main-content">
+        <h2>Which House Do You Like Better?</h2>
+        <div class="houses-container">
+            <div class="house" id="house1" onclick="vote('house1')">
+                <img src="house0001.jpg" alt="House 1">
+            </div>
+            <div class="house" id="house2" onclick="vote('house2')">
+                <img src="house0002.jpg" alt="House 2">
+            </div>
+        </div>
+        <button id="skipButton" onclick="skipHouse()">Skip</button>
+    </div>
+    
+    <!-- Link to the external JavaScript file -->
+    <script src="main.js" type="module"></script>
 </body>
 </html>
