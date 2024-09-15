@@ -14,9 +14,20 @@
             padding: 0;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+        }
+
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #02101e;
+                color: #ffffff;
+            }
+            .house {
+                background-color: #192734;
+                border: 1px solid #38444d;
+                color: #ffffff;
+            }
         }
 
         /* Main content container */
@@ -28,20 +39,41 @@
             margin: 0 auto;
             padding: 20px;
             box-sizing: border-box;
+        }
+
+        /* Header */
+        .houses-header {
             text-align: center;
+            width: 100%;
+            margin-bottom: 20px;
         }
 
         /* Houses container */
         .houses-container {
             display: flex;
-            justify-content: space-around;
-            margin-bottom: 40px;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 60vh;
+        }
+
+        .heart-animation {
+            position: absolute;
+            font-size: 24px;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        .heart-animation.animate {
+            transform: translate(-50%, -50%) scale(2);
+            opacity: 1;
         }
 
         /* House Card Styles */
         .house {
-            width: 45%;
-            padding: 10px;
+            width: 100%;
+            padding: 15px;
             background-color: #ffffff;
             border: 1px solid #e1e8ed;
             border-radius: 16px;
@@ -49,6 +81,13 @@
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             box-sizing: border-box;
+            text-align: center;
+        }
+
+        .house img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
         }
 
         .house:hover {
@@ -56,26 +95,65 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .house img {
-            width: 100%;
-            border-radius: 16px;
+        /* Leaderboard container */
+        #leaderboard {
+            background-color: #15202b;
+            border-radius: 8px;
+            color: white;
+            padding: 20px;
+            margin-top: 20px;
+            height: 50px; /* Initial height */
+            overflow: hidden;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            transition: height 0.3s ease-in-out; /* Smooth transition */
+            z-index: 1000; /* Ensure it's above other elements */
         }
 
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .houses-container {
-                flex-direction: column;
-            }
-
-            .house {
-                width: 100%;
-                margin-bottom: 20px;
-            }
+        /* Expanded state for the leaderboard */
+        #leaderboard.expanded {
+            height: 75vh; /* Full height when expanded */
+            overflow-y: auto;
         }
 
-        /* Button to skip to next pair */
+        /* Leaderboard header - clickable */
+        .leaderboard-header {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Leaderboard entries */
+        .leaderboard-entry {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background-color: #192734;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.3s;
+            display: none; /* Hidden by default */
+        }
+
+        /* Hover effect for leaderboard entries */
+        .leaderboard-entry:hover {
+            background-color: #1d2d40;
+        }
+
+        .leaderboard-entry .house-details {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #d1d1d1;
+        }
+
+        /* New styles for the skip button and house submission */
         #skipButton {
-            padding: 10px 20px;
+            width: 100%;
+            padding: 10px;
             border-radius: 8px;
             cursor: pointer;
             background-color: #1da1f2;
@@ -84,20 +162,61 @@
             font-size: 16px;
             margin-top: 20px;
         }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .main-content {
+                padding: 10px;
+            }
+
+            .house, #leaderboard {
+                width: 100%;
+            }
+
+            #leaderboard {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-height: 65vh;
+                overflow-y: auto;
+                z-index: 1000;
+                border-radius: 16px 16px 0 0;
+                box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .houses-container {
+                margin-bottom: 60vh; /* Adjust based on leaderboard height */
+            }
+        }
     </style>
 </head>
 <body>
     <div class="main-content">
-        <h2>Which House Do You Like Better?</h2>
-        <div class="houses-container">
-            <div class="house" id="house1" onclick="vote('house1')">
-                <img src="houses/house0001.jpg" alt="House 1">
+        <div class="houses-section">
+            <div class="houses-header">
+                <h2>Vote for the better house!</h2>
+                <p>Created by <a href="https://twitter.com/GeromeNF" target="_blank">@GeromeNF</a></p>
             </div>
-            <div class="house" id="house2" onclick="vote('house2')">
-                <img src="houses/house0005.jpg" alt="House 2">
+            <div class="houses-container">
+                <div class="house" id="house1" onclick="vote('house1')">
+                    <img src="" alt="House 1 will go here..." />
+                </div>
+                <div class="house" id="house2" onclick="vote('house2')">
+                    <img src="" alt="House 2 will go here..." />
+                </div>
+                <button id="skipButton" onclick="skipHouse()">Skip</button>
             </div>
         </div>
-        <button id="skipButton" onclick="skipHouse()">Skip</button>
+        
+        <div id="leaderboard">
+            <div class="leaderboard-header">
+                Leaderboard
+            </div>
+            <div id="leaderboard-entries">
+                <!-- Entries will be populated here by JavaScript -->
+            </div>
+        </div>
     </div>
     
     <!-- Link to the external JavaScript file -->

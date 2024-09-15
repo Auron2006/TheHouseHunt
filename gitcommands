@@ -1,0 +1,13 @@
+git add .
+git commit -m "copied entire project"
+git push
+
+vercel --prod 
+
+git config --global user.email "geromefischer@gnx.de"
+
+npm install -g vercel
+
+vercel --version
+
+vercel --prod
