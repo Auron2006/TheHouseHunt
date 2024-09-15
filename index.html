@@ -51,8 +51,9 @@
         /* Houses container */
         .houses-container {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            justify-content: space-around; /* Ensure equal spacing between houses */
+            flex-direction: row;  /* Align houses side by side */
+            gap: 20px;  /* Add space between the houses */
             margin-bottom: 60vh;
         }
 
@@ -72,7 +73,7 @@
 
         /* House Card Styles */
         .house {
-            width: 100%;
+            width: 45%;  /* Set the house width to 45% so two houses fit side by side */
             padding: 15px;
             background-color: #ffffff;
             border: 1px solid #e1e8ed;
@@ -165,12 +166,12 @@
 
         /* Responsive Design */
         @media (max-width: 600px) {
-            .main-content {
-                padding: 10px;
+            .houses-container {
+                flex-direction: column;  /* Stack houses vertically on smaller screens */
             }
 
-            .house, #leaderboard {
-                width: 100%;
+            .house {
+                width: 100%;  /* Houses will take full width on smaller screens */
             }
 
             #leaderboard {
@@ -205,8 +206,8 @@
                 <div class="house" id="house2" onclick="vote('house2')">
                     <img src="" alt="House 2 will go here..." />
                 </div>
-                <button id="skipButton" onclick="skipHouse()">Skip</button>
             </div>
+            <button id="skipButton" onclick="skipHouse()">Skip</button>
         </div>
         
         <div id="leaderboard">
