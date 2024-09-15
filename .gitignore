@@ -1,3 +1,6 @@
 .vercel
 node_modules
 node_modules
+# Ignore the Firebase configuration or Google Cloud Service Account key
+serviceAccountKey.json
+firebaseConfig.js
