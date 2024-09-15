@@ -129,6 +129,32 @@ async function vote(chosenHouse) {
     displayHouses();
 }
 
+function handleScroll() {
+    const leaderboard = document.getElementById('leaderboard');
+    if (window.scrollY > 100 && leaderboard.classList.contains('expanded')) {
+        leaderboard.classList.remove('expanded');
+        document.querySelectorAll('.leaderboard-entry').forEach(entry => {
+            entry.style.display = 'none'; // Hide all leaderboard entries when collapsing
+        });
+    }
+}
+
+function toggleLeaderboardExpanded() {
+    const leaderboard = document.getElementById('leaderboard');
+    leaderboard.classList.toggle('expanded'); // Toggle the 'expanded' class
+
+    // If it's expanded, show all entries, otherwise collapse them
+    if (leaderboard.classList.contains('expanded')) {
+        document.querySelectorAll('.leaderboard-entry').forEach(entry => {
+            entry.style.display = 'block'; // Show all leaderboard entries
+        });
+    } else {
+        document.querySelectorAll('.leaderboard-entry').forEach(entry => {
+            entry.style.display = 'none'; // Hide leaderboard entries when collapsed
+        });
+    }
+}
+
 // Load and display the leaderboard
 async function loadLeaderboard() {
     try {

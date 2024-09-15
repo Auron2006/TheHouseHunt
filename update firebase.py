@@ -15,8 +15,8 @@ input_dir = os.path.join(os.getcwd(), 'houses')  # Folder with house images
 # Firestore collection reference
 collection_ref = db.collection('houses')
 
-# Base URL for images hosted on Vercel (you'll need to modify this with the actual deployment URL)
-base_url = "https://your-vercel-deployment-url.com/houses/"
+# Base URL for images hosted on Vercel
+base_url = "https://the-house-hunt.vercel.app/houses/"
 
 # Loop through all files in the input directory
 for filename in os.listdir(input_dir):
